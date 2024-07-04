@@ -1,10 +1,13 @@
 package com.fast_food.controller;
 
+import com.fast_food.model.Cart;
 import com.fast_food.model.CartItem;
 import com.fast_food.model.Order;
 import com.fast_food.model.User;
+import com.fast_food.repository.CartRepository;
 import com.fast_food.request.AddCartItemRequest;
 import com.fast_food.request.OrderRequest;
+import com.fast_food.service.CartService;
 import com.fast_food.service.OrderService;
 import com.fast_food.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,9 @@ public class OrderController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private CartRepository cartRepository;
+
     @PostMapping("/order")
     public ResponseEntity<Order> createOrder(
             @RequestBody OrderRequest req,
@@ -32,6 +38,10 @@ public class OrderController {
 
         User user = userService.findUserByJwtToken(jwt);
         Order order = orderService.createOrder(req,user);
+        Cart orderCart=cartRepository.findByCustomerId(user.getId());
+
+        cartRepository.delete(orderCart);
+
 
         return new ResponseEntity<>(order, HttpStatus.CREATED);
     }
