@@ -34,11 +34,12 @@ public class CartServiceImp implements CartService{
         Food food = foodService.findFoodById(req.getFoodId());
 
         Cart cart = cartRepository.findByCustomerId(user.getId());
-
+;
         for (CartItem cartItem : cart.getItem()){
             if(cartItem.getFood().equals(food)){
-                int newQty= cartItem.getQuantity()+req.getQuantity();
-                    return updateCartItemQuantity(cartItem.getId(),newQty);
+//                int newQty= cartItem.getQuantity()+req.getQuantity();
+//                    return updateCartItemQuantity(cartItem.getId(),newQty);
+                return null;
             }
         }
 
