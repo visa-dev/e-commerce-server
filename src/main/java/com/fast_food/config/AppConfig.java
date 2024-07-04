@@ -50,7 +50,9 @@ public class AppConfig {
 
                 cfg.setAllowedOrigins(List.of(
                         "http://localhost:5173/",
-                        "https://e-commerce-project-zeta-five.vercel.app"
+                        "https://e-commerce-project-zeta-five.vercel.app",
+                        "https://6686c534ddec6c333fe88058--keen-kringle-cefdd7.netlify.app"
+
                 ));
 
                 cfg.setAllowedMethods(Collections.singletonList("*"));
