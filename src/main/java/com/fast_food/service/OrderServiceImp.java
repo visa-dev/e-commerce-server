@@ -34,7 +34,6 @@ public class OrderServiceImp implements OrderService{
     public Order createOrder(OrderRequest order, User user) throws Exception {
 
         Address shipAddress = order.getDeliveryAddress();
-
         Address savedAddress = addressRepository.save(shipAddress);
 
         if(!user.getAddresses().contains(savedAddress)){

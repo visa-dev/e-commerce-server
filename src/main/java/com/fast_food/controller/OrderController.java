@@ -38,9 +38,10 @@ public class OrderController {
 
         User user = userService.findUserByJwtToken(jwt);
         Order order = orderService.createOrder(req,user);
-        Cart orderCart=cartRepository.findByCustomerId(user.getId());
 
-        cartRepository.delete(orderCart);
+        Cart orderCart=cartRepository.findByCustomerId(user.getId());
+        orderCart.getItem().clear();
+        cartRepository.save(orderCart);
 
 
         return new ResponseEntity<>(order, HttpStatus.CREATED);
