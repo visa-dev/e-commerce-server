@@ -7,8 +7,10 @@ import com.fast_food.model.User;
 import com.fast_food.repository.CartRepository;
 import com.fast_food.request.AddCartItemRequest;
 import com.fast_food.request.OrderRequest;
+import com.fast_food.response.PaymentResponse;
 import com.fast_food.service.CartService;
 import com.fast_food.service.OrderService;
+import com.fast_food.service.PaymentService;
 import com.fast_food.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,7 +32,23 @@ public class OrderController {
     @Autowired
     private CartRepository cartRepository;
 
-    @PostMapping("/order")
+    @Autowired
+    PaymentService paymentService;
+
+
+
+    @PostMapping("/order/payment")
+    public ResponseEntity<PaymentResponse> createPaymentLink(
+            @RequestBody OrderRequest orderRequest,
+            @RequestHeader("Authorization") String jwt
+    ) throws Exception {
+
+        PaymentResponse paymentResponse=paymentService.createPaymentLink(orderRequest);
+
+        return new ResponseEntity<>(paymentResponse, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/order/create")
     public ResponseEntity<Order> createOrder(
             @RequestBody OrderRequest req,
             @RequestHeader("Authorization") String jwt
@@ -38,11 +56,6 @@ public class OrderController {
 
         User user = userService.findUserByJwtToken(jwt);
         Order order = orderService.createOrder(req,user);
-
-        Cart orderCart=cartRepository.findByCustomerId(user.getId());
-        orderCart.getItem().clear();
-        cartRepository.save(orderCart);
-
 
         return new ResponseEntity<>(order, HttpStatus.CREATED);
     }

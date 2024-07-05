@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImp implements OrderService{
@@ -27,7 +26,6 @@ public class OrderServiceImp implements OrderService{
     private RestaurantService restaurantService;
     @Autowired
     private CartService cartService;
-
 
 
     @Override
@@ -56,21 +54,26 @@ public class OrderServiceImp implements OrderService{
 
         for (CartItem cartItem : cart.getItem()){
             OrderItem orderItem = new OrderItem();
+            if(cartItem.getFood().getRestaurant()==restaurant){
+                orderItem.setFood(cartItem.getFood());
+                orderItem.setIngredients(cartItem.getIngredients());
+                orderItem.setQuantity(cartItem.getQuantity());
+                orderItem.setTotalPrice(cartItem.getTotalPrice());
 
-            orderItem.setFood(cartItem.getFood());
-            orderItem.setIngredients(cartItem.getIngredients());
-            orderItem.setQuantity(cartItem.getQuantity());
-            orderItem.setTotalPrice(cartItem.getTotalPrice());
+                OrderItem savedOrderItem = orderItemRepository.save(orderItem);
+                orderItems.add(savedOrderItem);
+            }
 
-            OrderItem savedOrderItem = orderItemRepository.save(orderItem);
-            orderItems.add(savedOrderItem);
         }
 
-        Long totPrice=cartService.calculateCartTotals(cart);
+        Long totPrice=cartService.calculateCartTotalsByRestaurantID(cart,restaurant);
 
         createOrder.setItems(orderItems);
         createOrder.setTotalPrice(totPrice);
 
+        if(user.getOrders().contains(createOrder)){
+            throw  new Exception("Order duplicate ");
+        }
         Order savedOrder = orderRepository.save(createOrder);
         restaurant.getOrders().add(savedOrder);
 
