@@ -71,7 +71,7 @@ public class FoodController {
         return new ResponseEntity<>(foods, HttpStatus.OK);
     }
 
-    @GetMapping("/food/all")
+    @GetMapping("/all")
     public ResponseEntity<List<Food>> getAllFoods(
 
     ) throws Exception {
