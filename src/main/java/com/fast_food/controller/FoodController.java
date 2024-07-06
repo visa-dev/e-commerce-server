@@ -71,14 +71,4 @@ public class FoodController {
         return new ResponseEntity<>(foods, HttpStatus.OK);
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<Food>> getAllFoods(
-
-    ) throws Exception {
-
-        List<Food> foods =foodService.getAllFoods();
-
-        return new ResponseEntity<>(foods, HttpStatus.OK);
-    }
-
 }
