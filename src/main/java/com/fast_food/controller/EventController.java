@@ -40,8 +40,7 @@ public class EventController {
 
     @GetMapping("event/all")
     public ResponseEntity<List<Event>> getAllEvents(
-            @RequestHeader("Authorization") String jwt
-
+            
     ) throws Exception {
 
         List<Event> events =eventService.getAllEvents();
