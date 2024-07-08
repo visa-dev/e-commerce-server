@@ -8,6 +8,7 @@ import com.fast_food.repository.AddressRepository;
 import com.fast_food.repository.RestaurantRepository;
 import com.fast_food.repository.UserRepository;
 import com.fast_food.request.CreateRestaurantRequest;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -69,7 +70,19 @@ public class RestaurantServiceImp implements RestaurantService {
 
     @Override
     public void deleteRestaurant(Long restaurantId) throws Exception {
-        restaurantRepository.deleteById(restaurantId);
+        Optional<Restaurant> optionalRestaurant=restaurantRepository.findById(restaurantId);
+
+        if(optionalRestaurant.isEmpty()){
+            throw new EntityNotFoundException("Restaurant not found with id  "+restaurantId);
+        }
+
+        Restaurant restaurant =optionalRestaurant.get();
+        User owner = restaurant.getOwner();
+        restaurant.setOwner(null);
+
+        // Delete the restaurant
+        restaurantRepository.delete(restaurant);
+
     }
 
     @Override
