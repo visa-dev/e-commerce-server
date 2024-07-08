@@ -65,7 +65,7 @@ public class AdminRestaurantController {
     ) throws Exception
 
     {
-        User user = userService.findUserByJwtToken(jwt);
+
          restaurantService.deleteRestaurant(id);
 
         MessageResponse messageResponse = new MessageResponse();

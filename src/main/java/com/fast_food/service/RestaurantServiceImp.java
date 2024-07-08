@@ -43,7 +43,7 @@ public class RestaurantServiceImp implements RestaurantService {
         restaurant.setOpeningHours(req.getOpeningHours());
         restaurant.setRegistrationDateTime(LocalDateTime.now());
         restaurant.setOwner(user);
-
+        restaurant.setOpen(true);
         return restaurantRepository.save(restaurant);
     }
 
@@ -69,10 +69,7 @@ public class RestaurantServiceImp implements RestaurantService {
 
     @Override
     public void deleteRestaurant(Long restaurantId) throws Exception {
-
-        Restaurant restaurant = findRestaurantById(restaurantId);
-
-        restaurantRepository.delete(restaurant);
+        restaurantRepository.deleteById(restaurantId);
     }
 
     @Override
