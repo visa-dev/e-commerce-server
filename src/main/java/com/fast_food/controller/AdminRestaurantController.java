@@ -65,6 +65,7 @@ public class AdminRestaurantController {
     ) throws Exception
 
     {
+
         restaurantService.deleteRestaurant(id);
 
         MessageResponse messageResponse = new MessageResponse();

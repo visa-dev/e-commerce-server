@@ -76,13 +76,13 @@ public class RestaurantServiceImp implements RestaurantService {
             throw new EntityNotFoundException("Restaurant not found with id  "+restaurantId);
         }
 
-        Restaurant restaurant =optionalRestaurant.get();
-        User owner = restaurant.getOwner();
-        userRepository.delete(owner);
-        restaurant.setOwner(null);
-
-        // Delete the restaurant
-        restaurantRepository.delete(restaurant);
+//        Restaurant restaurant =optionalRestaurant.get();
+//        User owner = restaurant.getOwner();
+//        userRepository.delete(owner);
+//        restaurant.setOwner(null);
+//
+//        // Delete the restaurant
+//        restaurantRepository.delete(restaurant);
 
     }
 
