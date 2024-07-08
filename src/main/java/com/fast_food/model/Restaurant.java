@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class Restaurant {
 
     @ElementCollection
     @Column(length = 1000)
+    @Cascade(value = org.hibernate.annotations.CascadeType.REMOVE)
     private  List<String> images;
 
     private LocalDateTime registrationDateTime;
