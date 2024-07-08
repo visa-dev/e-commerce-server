@@ -21,7 +21,7 @@ public class Restaurant {
     @GeneratedValue(strategy = GenerationType.AUTO )
     private  Long id;
 
-    @ManyToOne(cascade =CascadeType.ALL )
+    @ManyToOne(cascade =CascadeType.ALL ,optional = true)
     private User owner;
 
     private String name;
@@ -51,10 +51,10 @@ public class Restaurant {
     private boolean open;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "restaurant",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "restaurant",cascade = CascadeType.ALL,orphanRemoval = true)
     private  List<Food> foods=new ArrayList<>();
 
-    @OneToMany(mappedBy = "restaurant",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "restaurant",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Event> events=new ArrayList<>();
 
 }
