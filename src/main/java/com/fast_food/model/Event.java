@@ -30,7 +30,7 @@ public class Event {
 
     private String endDate;
 
-    @JsonIgnore
+    
     @ManyToOne
     private  Restaurant restaurant;
 }
