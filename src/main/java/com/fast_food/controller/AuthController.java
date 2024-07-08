@@ -17,7 +17,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -70,7 +69,7 @@ public class AuthController {
         Collection<? extends GrantedAuthority> authorities=authentication.getAuthorities();
         String role=authorities.isEmpty()?null:authorities.iterator().next().getAuthority();
 
-        String jwt=jwtProvider.geneateToken(authentication);
+        String jwt=jwtProvider.generateToken(authentication);
 
         AuthResponse authResponse = new AuthResponse();
         authResponse.setJwt(jwt);
@@ -90,7 +89,7 @@ public class AuthController {
         Collection<? extends GrantedAuthority> authorities=authentication.getAuthorities();
         String role=authorities.isEmpty()?null:authorities.iterator().next().getAuthority();
 
-        String jwt=jwtProvider.geneateToken(authentication);
+        String jwt=jwtProvider.generateToken(authentication);
         User user = userService.findUserByEmail(req.getEmail());
 
         AuthResponse authResponse = new AuthResponse();

@@ -33,8 +33,7 @@ public class AppConfig {
                                 .requestMatchers("/api/event/all").permitAll()
                         .requestMatchers("/api/admin/**").hasAnyRole("RESTAURANT_OWNER","ADMIN")
                         .requestMatchers("/api/**").authenticated() //only jwt matched users allow
-                        .anyRequest().permitAll() //user do not want to provide jwt token sign in and sign up and
-                        // visit first time
+                        .anyRequest().permitAll() //user do not want to provide jwt token sign in , sign up and visit first time
                 ).addFilterBefore(new JwtTokenValidator(),  BasicAuthenticationFilter.class)
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors-> cors.configurationSource(corsConfigrationSource()));

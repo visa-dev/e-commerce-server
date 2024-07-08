@@ -16,10 +16,11 @@ public class JwtProvider {
 
     private SecretKey key= Keys.hmacShaKeyFor(JwtConstant.SECRET_KEY.getBytes());
 
-    public String geneateToken(Authentication auth){
+    public String generateToken(Authentication auth){
 
         Collection<? extends GrantedAuthority> authorities =auth.getAuthorities();
-        String roles = populateAuthorities(authorities);  //jwt token allows only string type that's why convert to string again
+        String roles = populateAuthorities(authorities);
+        //jwt token allows only string type that's why convert to string again
 
         String jwt= Jwts.builder().setIssuedAt(new Date())
                 .setExpiration((new Date(new Date().getTime()+8640000)))

@@ -30,6 +30,10 @@ public class Address {
 
     private String mobile;
 
+    private String country;
+
+    private int postalCode;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
