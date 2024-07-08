@@ -77,7 +77,7 @@ public class RestaurantServiceImp implements RestaurantService {
         }
 
         Restaurant restaurant = optionalRestaurant.get();
-
+        restaurant.getImages().clear();
         // Delete the restaurant
         restaurantRepository.delete(restaurant);
 
