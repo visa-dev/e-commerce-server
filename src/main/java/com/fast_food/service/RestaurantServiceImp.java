@@ -78,6 +78,7 @@ public class RestaurantServiceImp implements RestaurantService {
 
         Restaurant restaurant =optionalRestaurant.get();
         User owner = restaurant.getOwner();
+        userRepository.delete(owner);
         restaurant.setOwner(null);
 
         // Delete the restaurant
