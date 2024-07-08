@@ -1,6 +1,8 @@
 package com.fast_food.controller;
 
 import com.fast_food.model.Event;
+import com.fast_food.repository.EventRepository;
+import com.fast_food.response.MessageResponse;
 import com.fast_food.service.EventService;
 import com.fast_food.service.RestaurantService;
 import com.fast_food.service.UserService;
@@ -10,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/")
@@ -23,6 +26,7 @@ public class EventController {
 
     @Autowired
     private EventService eventService;
+
 
     @PostMapping("admin/event/create/{id}")
     public ResponseEntity<Event> createCategory(
@@ -45,6 +49,21 @@ public class EventController {
 
         List<Event> events =eventService.getAllEvents();
         return new ResponseEntity<>(events, HttpStatus.CREATED);
+
+    }
+
+    @DeleteMapping("admin/event/{id}")
+    public ResponseEntity<MessageResponse> deleteEvent(
+            @RequestHeader("Authorization") String jwt,
+            @PathVariable Long id
+    ) throws Exception {
+
+
+        eventService.deleteEvent(id);
+        MessageResponse messageResponse = new MessageResponse();
+        messageResponse.setMessage("Event Deleted Successfully");
+
+        return new ResponseEntity<>(messageResponse, HttpStatus.OK);
 
     }
 

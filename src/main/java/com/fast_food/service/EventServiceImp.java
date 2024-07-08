@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class EventServiceImp implements EventService{
@@ -55,8 +56,8 @@ public class EventServiceImp implements EventService{
     }
 
     @Override
-    public Event deleteEvent(Event event, Long id) throws Exception {
-        return null;
+    public void deleteEvent(Long id) throws Exception {
+        eventRepository.deleteById(id);
     }
 
     @Override
