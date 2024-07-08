@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class Restaurant {
     @GeneratedValue(strategy = GenerationType.AUTO )
     private  Long id;
 
-    @OneToOne(cascade =CascadeType.ALL )
+    @ManyToOne(cascade =CascadeType.ALL )
     private User owner;
 
     private String name;
@@ -41,7 +42,8 @@ public class Restaurant {
     private List<Order> orders=new ArrayList<>();
 
     @ElementCollection
-    @Column(length = 1000)
+    @Column(length = 100)
+    @Cascade(value = org.hibernate.annotations.CascadeType.REMOVE)
     private  List<String> images;
 
     private LocalDateTime registrationDateTime;
