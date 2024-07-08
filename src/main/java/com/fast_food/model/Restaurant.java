@@ -40,10 +40,7 @@ public class Restaurant {
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
 
-    @ElementCollection
-    @CollectionTable(name = "restaurant_images", joinColumns = @JoinColumn(name = "restaurant_id"))
-    @Column(name = "image", length = 100)
-    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<String> images = new ArrayList<>();
 
     private LocalDateTime registrationDateTime;
