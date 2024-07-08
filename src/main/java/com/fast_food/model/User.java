@@ -25,7 +25,7 @@ public class User {
 
    private String email;
 
-   @OneToOne(cascade = CascadeType.ALL)
+   @OneToOne(cascade = CascadeType.ALL,optional = true)
    private Cart cart;
 
    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
