@@ -1,6 +1,5 @@
 package com.fast_food.model;
 
-
 import com.fast_food.dto.RestaurantDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,11 +11,10 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 @Data
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class User {
 
    @Id
@@ -33,15 +31,15 @@ public class User {
    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
    private String password;
 
-   private  USER_ROLE role=USER_ROLE.ROLE_CUSTOMER;
+   private USER_ROLE role = USER_ROLE.ROLE_CUSTOMER;
 
-   @JsonIgnore //user api call time it not show
-   @OneToMany(cascade = CascadeType.ALL,mappedBy = "customer")
-   private List<Order> orders=new ArrayList<>();
+   @JsonIgnore // user api call time it not show
+   @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+   private List<Order> orders = new ArrayList<>();
 
    @ElementCollection
-   private List<RestaurantDto> favorites=new ArrayList<>();
+   private List<RestaurantDto> favorites = new ArrayList<>();
 
-   @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)  //when we delete user automatically delete all address
-   private List<Address> addresses =new ArrayList<>();
+   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)  // when we delete user automatically delete all address
+   private List<Address> addresses = new ArrayList<>();
 }

@@ -18,43 +18,41 @@ import java.util.List;
 public class Restaurant {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO )
-    private  Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    @ManyToOne(cascade =CascadeType.ALL )
+    @ManyToOne(cascade = CascadeType.ALL)
     private User owner;
 
     private String name;
-
     private String description;
     private String cuisineType;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Address address;
 
-    @Embedded //part of restaurant entity
+    @Embedded // part of restaurant entity
     private ContactInformation contactInformation;
 
     private String openingHours;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "restaurant",cascade = CascadeType.ALL ,orphanRemoval = true)
-    private List<Order> orders=new ArrayList<>();
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> orders = new ArrayList<>();
 
     @ElementCollection
     @Column(length = 100)
-    @Cascade(value = org.hibernate.annotations.CascadeType.REMOVE)
-    private  List<String> images;
+    @Cascade(value = org.hibernate.annotations.CascadeType.ALL) // Cascade for ElementCollection
+    private List<String> images = new ArrayList<>();
 
     private LocalDateTime registrationDateTime;
 
     private boolean open;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "restaurant",cascade = CascadeType.ALL)
-    private  List<Food> foods=new ArrayList<>();
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Food> foods = new ArrayList<>();
 
-    @OneToMany(mappedBy = "restaurant",cascade = CascadeType.ALL)
-    private List<Event> events=new ArrayList<>();
-
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Event> events = new ArrayList<>();
 }
