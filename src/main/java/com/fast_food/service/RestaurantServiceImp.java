@@ -82,6 +82,7 @@ public class RestaurantServiceImp implements RestaurantService {
 
         // Delete the restaurant
         restaurantRepository.delete(restaurant);
+        userRepository.delete(owner);
 
     }
 
