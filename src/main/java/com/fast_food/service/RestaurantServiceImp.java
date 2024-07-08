@@ -70,13 +70,13 @@ public class RestaurantServiceImp implements RestaurantService {
 
     @Override
     public void deleteRestaurant(Long restaurantId) throws Exception {
-        Optional<Restaurant> optionalRestaurant=restaurantRepository.findById(restaurantId);
+        Optional<Restaurant> optionalRestaurant = restaurantRepository.findById(restaurantId);
 
-        if(optionalRestaurant.isEmpty()){
-            throw new EntityNotFoundException("Restaurant not found with id  "+restaurantId);
+        if (optionalRestaurant.isEmpty()) {
+            throw new EntityNotFoundException("Restaurant not found with id " + restaurantId);
         }
 
-        Restaurant restaurant =optionalRestaurant.get();
+        Restaurant restaurant = optionalRestaurant.get();
 
         // Delete the restaurant
         restaurantRepository.delete(restaurant);

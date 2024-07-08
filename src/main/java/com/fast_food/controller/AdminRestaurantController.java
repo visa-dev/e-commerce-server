@@ -62,15 +62,10 @@ public class AdminRestaurantController {
     public ResponseEntity<MessageResponse> deleteRestaurant(
             @RequestHeader("Authorization") String jwt,
             @PathVariable Long id
-    ) throws Exception
-
-    {
-
+    ) throws Exception {
         restaurantService.deleteRestaurant(id);
-
         MessageResponse messageResponse = new MessageResponse();
         messageResponse.setMessage("Restaurant Deleted Successfully");
-
         return new ResponseEntity<>(messageResponse, HttpStatus.OK);
     }
 
