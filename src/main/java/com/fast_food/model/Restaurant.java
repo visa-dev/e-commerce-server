@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -41,8 +40,8 @@ public class Restaurant {
     private List<Order> orders = new ArrayList<>();
 
     @ElementCollection
-    @Column(length = 100)
-    @Cascade(value = org.hibernate.annotations.CascadeType.ALL) // Cascade for ElementCollection
+    @CollectionTable(name = "restaurant_images", joinColumns = @JoinColumn(name = "restaurant_id"))
+    @Column(name = "image", length = 100)
     private List<String> images = new ArrayList<>();
 
     private LocalDateTime registrationDateTime;
